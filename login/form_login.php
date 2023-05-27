@@ -28,8 +28,8 @@
             <p class="mb-4">Puskesmas Naraya Kota Banjarmasin.</p>
             <form action="Login.php" method="POST">
               <div class="form-group first">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" placeholder="Masukkan Username" id="username" name="username" required>
+                <label for="email">Email</label>
+                <input type="text" class="form-control" placeholder="Masukkan Email" id="email" name="email" required>
               </div>
               <div class="form-group last mb-3">
                 <label for="password">Password</label>

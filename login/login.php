@@ -9,37 +9,82 @@ $post = (object) $_POST;
 $canLoggedIn = false;
 
 //find user by email
-$isUserExits = UserORM::where('email', $post->email)->findOne();
+$isUserExists = UserORM::where('email', $post->email)->findOne();
 
-if (!$isUserExits) {
+if (!$isUserExists) {
     $_SESSION['message'] = "User tidak ditemukan";
     header('location:form_login.php');
+    return;
 }
 
-$canLoggedIn = password_verify($post->password, $isUserExits->password);
+$canLoggedIn = password_verify($post->password, $isUserExists->password);
 
-if(!$canLoggedIn) {
+if (!$canLoggedIn) {
     $_SESSION['message'] = "Anda tidak memiliki akses!";
     header('location:form_login.php');
     return;
 }
 
-if (!$isUserExits ) {
-    // update last_login dan save objek pengguna
-    $isUserExits->last_login = time();
-    $isUserExits->save();
+// Check if the user is an admin
+if ($isUserExists->hak_akses === 'admin') {
+    // Update last_login and save the user object
+    $isUserExists->last_login = time();
+    $isUserExists->save();
 
-    // login berhasil, lakukan redirect ke halaman selanjutnya
-   
+    // Set session variables
+    $_SESSION['message'] = 'Hola ' . $isUserExists->nama . '! Terakhir login: ' . date('Y-m-d H:i:s', $isUserExists->last_login);
+    $_SESSION['isLoggedIn'] = true;
+    $_SESSION['UserID'] = $isUserExists->id;
+
+    // Redirect to admin page
+    header('location:../admin/index.php');
+    exit;
 }
-//no problem with username and password, all is correct
-$isUserExits->last_login = time(); // menyimpan nilai timestamp Unix terbaru
+// Check if the user is an admin
+if ($isUserExists->hak_akses === 'petugas') {
+    // Update last_login and save the user object
+    $isUserExists->last_login = time();
+    $isUserExists->save();
 
-// konversi nilai timestamp Unix ke dalam datetime string
-$lastLoginDateTime = date('Y-m-d H:i:s', $isUserExits->last_login);
-$_SESSION['message'] = 'Hola ' . $isUserExits->nama . '! Terakhir login: ' . $lastLoginDateTime;
+    // Set session variables
+    $_SESSION['message'] = 'Hola ' . $isUserExists->nama . '! Terakhir login: ' . date('Y-m-d H:i:s', $isUserExists->last_login);
+    $_SESSION['isLoggedIn'] = true;
+    $_SESSION['UserID'] = $isUserExists->id;
 
-$_SESSION['isLoggedIn'] = true;
-$_SESSION['UserID'] = $isUserExits->id;
-header('location:../index.php');
+    // Redirect to admin page
+    header('location:../petugas/index.php');
+    exit;
+}
+// Check if the user is an admin
+if ($isUserExists->hak_akes === 'bendahara') {
+    // Update last_login and save the user object
+    $isUserExists->last_login = time();
+    $isUserExists->save();
 
+    // Set session variables
+    $_SESSION['message'] = 'Hola ' . $isUserExists->nama . '! Terakhir login: ' . date('Y-m-d H:i:s', $isUserExists->last_login);
+    $_SESSION['isLoggedIn'] = true;
+    $_SESSION['UserID'] = $isUserExists->id;
+
+    // Redirect to admin page
+    header('location:../bendahara/index.php');
+    exit;
+}
+// Check if the user is an admin
+if ($isUserExists->hak_akses === 'kepala') {
+    // Update last_login and save the user object
+    $isUserExists->last_login = time();
+    $isUserExists->save();
+
+    // Set session variables
+    $_SESSION['message'] = 'Hola ' . $isUserExists->nama . '! Terakhir login: ' . date('Y-m-d H:i:s', $isUserExists->last_login);
+    $_SESSION['isLoggedIn'] = true;
+    $_SESSION['UserID'] = $isUserExists->id;
+
+    // Redirect to admin page
+    header('location:../kepala/index.php');
+    exit;
+}
+
+// If the user is not an admin, redirect to another page
+header('location:../pasien/index.php');

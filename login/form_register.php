@@ -1,3 +1,7 @@
+<?php
+//initiate the session
+session_start();
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,18 +28,35 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
+          <?php
+                        if (isset($_SESSION['message'])){
+                            echo '<div class=" alert alert-warning">'. $_SESSION['message'].'</div>';
+                            unset($_SESSION['message']);
+                        }
+                        ?>
             <h3><strong>Daftar Akun</strong></h3>
             <p class="mb-4">Puskesmas Naraya Kota Banjarmasin.</p>
             <form action="register.php" method="POST">
-              <div class="form-group first">
+            <div class="form-group first">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" placeholder="Masukkan Username" id="username" name="username" required>
+                <input type="text" class="form-control" placeholder="Masukkan Username" id="nama" name="nama" required>
+              </div>
+              <div class="form-group first">
+                <label for="username">Email</label>
+                <input type="text" class="form-control" placeholder="Masukkan Email" id="email" name="email" required>
               </div>
               <div class="form-group last mb-3">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" placeholder="Masukkan Password" id="password" name="password" required>
-                <input type="checkbox" onclick="myFunction()" style=" margin-top: 1rem !important;"> Show Password 
-              </div>
+  <label for="password">Password</label>
+  <input type="password" class="form-control" placeholder="Masukkan Password" id="password" name="password" required>
+</div>
+<div class="form-group first">
+  <label for="username">Retype Password</label>
+  <input type="password" class="form-control" placeholder="Retype Password" id="password_confirm" name="password_confirm" required>
+  <input type="checkbox" onclick="myFunction()" style="margin-top: 1rem !important;"> Show Password
+</div>
+
+
+
               
               <div class="mb-5 text-center" style="font-size: 14px;">
                 Sudah Punya Akun ? <a href="form_login.php" class="text-primary" style="text-decoration: none;">Login</a>
@@ -59,15 +80,19 @@
     <script src="js/main.js"></script>
 
     <script>
-      function myFunction() {
-        var x = document.getElementById("password");
-      if (x.type === "password") {
-          x.type = "text";
-        } else {
-        x.type = "password";
-    		}
-      } 
-    </script>
+function myFunction() {
+  var passwordInput = document.getElementById("password");
+  var passwordConfirmInput = document.getElementById("password_confirm");
+
+  if (passwordInput.type === "password" && passwordConfirmInput.type === "password") {
+    passwordInput.type = "text";
+    passwordConfirmInput.type = "text";
+  } else {
+    passwordInput.type = "password";
+    passwordConfirmInput.type = "password";
+  }
+}
+</script>
 
   </body>
 </html>
