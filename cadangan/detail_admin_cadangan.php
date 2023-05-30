@@ -18,6 +18,8 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
   <title>Puskesmas</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-jQg0+bAY6ky4F9vjIgvgxNt3a/JM8jOQZYLkhxG4I5i22SBy5eJJHE2Pe0QuaX+Jd2KTDmbI/x9Ri3RE6fg4kQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <style>
 .order-card {
@@ -119,51 +121,94 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
       </header>
       <!--  Header End -->
       <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+     
+   
+<div style="margin-left:70px;" class="row">
+
+<div class="col-sm-4">
+  <div class="card" style="display: flex; flex-direction: column; height: 350px;">
+    <div class="card-body" style="display: flex; justify-content: center; align-items: center;">
+      <img src="../gambar/user.jpeg" alt="User Image" style="width: 200px; height: 200px; border-radius: 50%;">
+    </div>
+  </div>
+</div>
+
+
+
+
+  <div class="col-sm-7">
+  <div class="card" style="height: 350px;">
+
+      <div class="card-body">
+      <div style="text-align: center;">
+  <strong style="color: black; margin-right: 10px;">INFORMASI</strong>
+</div>
       
-      <div class="container-fluid">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <div class="container">
-            <div class="row">
-          </div>
-          
+    
+      <br>
+      <br>
+      <style>
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-            <div class="panel-body">
-        <div class="table-responsive mt-3">
-          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Nama User</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-            <?php
-              //get all pelanggan list
-                        $list_user= UserORM::findMany();
-                        if (!empty($list_user)) {
-                            foreach ($list_user as $key => $user) { ?>
+    .navbar-left {
+        margin-left: 10px;
+    }
 
-              <tr>
-                <th scope="row">
-                  <?= $key +1;?>
-                </th>
-                <th><a>
-                    <?= $user->nama;?>
-                  </a></th>
-                <th><?=$user->email;?></th>
-              </tr>
+    .navbar-right {
+        margin-right: 10px;
+    }
+    .card{
+      box-shadow: 0 0 10px rgba(1, 2, 3, 4.1);
 
-              <?php }
-                        } else {
-                            echo '<tr><td colspan="4">No records found</td></tr>';
-                        }
-                        ?>
-            </tbody>
-          </table>
+    }
+</style>
 
-          </div>
-        </div>
+<div class="navbar">
+    <div class="navbar-left">
+        <a><?= $user->nama;?></a>
+    </div>
+    <div class="navbar-right">
+        <a><?= $user->password;?></a>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<div class="navbar">
+    <div class="navbar-left">
+        <a><?= $user->email;?></a>
+    </div>
+    <div class="navbar-right">
+        <a><?= $user->hak_akses;?></a>
+    </div>
+</div>
+<br>
+<br>
+
+
+<div style="white-space: nowrap; text-align: center;">
+                  <a type="button" data-toggle="modal" class="btn btn-primary mb-3"
+                data-target="#exampleModal" style="margin-right: 10px;">Edit</a>
+                <a type="button" data-toggle="modal" class="btn btn-info mb-3" 
+                data-target="#exampleModal1" style="margin-left: 10px;">Hapus</a>
+</div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+     
         <!--  Row 1 -->
         <div class="row">
         <div class="py-6 px-6 text-center">
@@ -216,7 +261,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
                             <div class="form-row">
   <div class="col-md-12">
     <label>Level</label>
-    <select class="form-select" aria-label="Default select example" name="level">
+    <select class="form-select" aria-label="Default select example" name="hak_akses">
       <option selected disabled>Pilih Level</option>
       <option value="admin">Admin</option>
       <option value="petugas">Petugas</option>

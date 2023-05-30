@@ -10,7 +10,9 @@ $post = (object) $_POST;
 $user=UserORM::create();
 $user->nama = $post->nama;
 $user->email= $post->email;
-$user->hak_akses= $post->hak_akses;
+if (isset($post->hak_akses)) {
+    $user->hak_akses = $post->hak_akses;
+    }
 $user->password= password_hash($post->password, PASSWORD_DEFAULT);
 $user->save();
 

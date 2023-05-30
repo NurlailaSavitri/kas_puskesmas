@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2023 at 01:20 PM
+-- Generation Time: May 30, 2023 at 01:27 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -90,15 +90,24 @@ CREATE TABLE `layanan_tindakan_medis` (
 --
 
 CREATE TABLE `pasien` (
-  `kode_pasien` int(11) NOT NULL,
+  `id` int(15) NOT NULL,
   `nama_pasien` varchar(100) NOT NULL,
   `jenis_pasien` varchar(50) NOT NULL,
   `tempat_lahir` varchar(150) NOT NULL,
   `tanggal_lahir` date NOT NULL,
   `alamat_pasien` text NOT NULL,
-  `nomor_telepon` varchar(15) NOT NULL,
-  `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+  `nomor_telphone` varchar(20) NOT NULL,
+  `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6),
+  `kode_pasien` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pasien`
+--
+
+INSERT INTO `pasien` (`id`, `nama_pasien`, `jenis_pasien`, `tempat_lahir`, `tanggal_lahir`, `alamat_pasien`, `nomor_telphone`, `created_at`, `kode_pasien`) VALUES
+(1005, 'AHMAD BAIHAQY', 'laki-laki', 'kalsel', '2023-06-10', 'CEMPAKA 5', '082154780747', '2023-05-29 13:10:42.657463', 'BA-01'),
+(1006, 'sayangku', 'perempuan', 'banjar', '2023-05-07', 'dzafri zam zam', '082154780747', '2023-05-29 14:37:55.049028', 'KP-02');
 
 -- --------------------------------------------------------
 
@@ -137,10 +146,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `last_login`, `last_season`, `nama`, `hak_akses`, `create_at`) VALUES
-(2, 'ahmadbaihaqy@gmail.com', '$2y$10$1uynzpMdk8XW4u8jR7OhOue/Nnm4QUbiElbr4WomljAmUZQAvMiri', '1685186092', '', 'ahmad baihaqy', 'kepala', '2023-05-27 11:14:52.730319'),
-(6, 'sayang@gmail.com', '$2y$10$d08Q8XTYNC6cXe.eg.9lTu3w.AAgGAlsH6PdaB/b02JMVu/jhj5.6', '1685185749', '', 'sayang', 'admin', '2023-05-27 11:13:29.806495'),
-(7, 'lala@gmail.com', '$2y$10$8IaHOs95I1gJi6/vNLCNxuIqa1feYKnezOzmMyvFhzOnTHFAMM2XS', '1685183554', '', 'lala', 'petugas', '2023-05-27 11:13:47.083416'),
-(8, 'misna@gmail.com', '$2y$10$VxxEXWNuzmFDzMPX67gSj.ce6ytsoEOe7f4/R/GQY/teVtO7HYUOe', '', '', 'misna', 'bendahara', '2023-05-27 11:18:45.813715');
+(6, 'sayang@gmail.com', '1', '1685371036', '', 'sayangku', 'admin', '2023-05-29 14:37:16.176050'),
+(11, 'juraida@gmail.com', '1', '', '', 'juraida', '', '2023-05-28 07:13:39.650589'),
+(25, 'lala@gmail.com', '1', '1685367196', '', 'lala', 'petugas', '2023-05-29 13:33:16.129574'),
+(28, 'ahmadbaihaqy@yahoo.co.id', '2', '1685366172', '', 'ahmad baihaqy', 'kepala', '2023-05-29 13:16:12.065005'),
+(30, 'misna@gmail.com', '1', '', '', 'misna', 'bendahara', '2023-05-28 09:45:03.446007');
 
 --
 -- Indexes for dumped tables
@@ -174,7 +184,7 @@ ALTER TABLE `layanan_tindakan_medis`
 -- Indexes for table `pasien`
 --
 ALTER TABLE `pasien`
-  ADD PRIMARY KEY (`kode_pasien`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `pengguna`
@@ -220,7 +230,7 @@ ALTER TABLE `layanan_tindakan_medis`
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `kode_pasien` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1008;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
@@ -232,7 +242,7 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

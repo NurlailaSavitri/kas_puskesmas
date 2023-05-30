@@ -39,7 +39,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="#" aria-expanded="false">
+              <a class="sidebar-link" href="pasien.php" aria-expanded="false">
                 <span>
                   <i class="ti ti-cards"></i>
                 </span>
@@ -47,11 +47,19 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="#" aria-expanded="false">
+              <a class="sidebar-link" href="layanan_medis.php" aria-expanded="false">
                 <span>
                   <i class="ti ti-article"></i>
                 </span>
                 <span class="hide-menu">Data Layanan Medis</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="kategori.php" aria-expanded="false">
+                <span>
+                <i class="ti ti-category"></i>
+                </span>
+                <span class="hide-menu">Kategori</span>
               </a>
             </li>
             <li class="nav-small-cap">

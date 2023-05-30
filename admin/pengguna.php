@@ -124,6 +124,10 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <div class="container">
             <div class="row">
+            <div style="text-align: right;">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  (+)Tambah
+</button>
           </div>
           
 
@@ -135,7 +139,6 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
                 <th>No.</th>
                 <th>Nama User</th>
                 <th>Email</th>
-                <th>Level User</th>
               </tr>
             </thead>
             <tbody>
@@ -149,11 +152,10 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
                 <th scope="row">
                   <?= $key +1;?>
                 </th>
-                <th><a href="http://localhost/kas_kecil/pengguna/detail_pengguna.php?id=<?= $user->id; ?>">
+                <th><a href="http://localhost/kas_puskesmas/admin/detail_pengguna.php?id=<?= $user->id; ?>">
                     <?= $user->nama;?>
                   </a></th>
                 <th><?=$user->email;?></th>
-                <th><?=$user->hak_akses;?></th>
               </tr>
 
               <?php }
@@ -215,12 +217,13 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
 
                                 </div>
                             </div>
+
                             <div class="form-row">
   <div class="col-md-12">
     <label>Level</label>
-    <select class="form-select" aria-label="Default select example" name="level">
+    <select class="form-select" aria-label="Default select example" name="hak_akses">
       <option selected disabled>Pilih Level</option>
-      <option value="admin">Admin</option>
+      <option value="kepala">Kepala</option>
       <option value="petugas">Petugas</option>
       <option value="bendahara">Bendahara</option>
     </select>

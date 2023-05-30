@@ -1,12 +1,12 @@
 <?php
 session_start();
-require_once '../orm/UserORM.php';
+require_once '../orm/PasienORM.php';
 $editMode= false;
 
 if(isset($_GET['id']) && is_numeric($_GET['id'])){
-    $user_id= $_GET ['id'];
-    $user = UserORM::findOne ($user_id);
-    $editMode = $user;
+    $pasien_id= $_GET ['id'];
+    $pasien = PasienORM::findOne ($pasien_id);
+    $editMode = $pasien;
 }
 ?>
 <!doctype html>
@@ -124,6 +124,10 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <div class="container">
             <div class="row">
+            <div style="text-align: right;">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  (+)Tambah
+</button>
           </div>
           
 
@@ -133,25 +137,28 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
             <thead>
               <tr>
                 <th>No.</th>
-                <th>Nama User</th>
-                <th>Email</th>
+                <th>Kode Pasien</th>
+                <th>Nama Pasien</th>
+                <th>Jenis Kelamin</th>
+
               </tr>
             </thead>
             <tbody>
             <?php
               //get all pelanggan list
-                        $list_user= UserORM::findMany();
-                        if (!empty($list_user)) {
-                            foreach ($list_user as $key => $user) { ?>
+                        $list_pasien= PasienORM::findMany();
+                        if (!empty($list_pasien)) {
+                            foreach ($list_pasien as $key => $pasien) { ?>
 
               <tr>
                 <th scope="row">
                   <?= $key +1;?>
                 </th>
-                <th><a>
-                    <?= $user->nama;?>
+                <th><a href="http://localhost/kas_puskesmas/admin/detail_pasien.php?id=<?= $pasien->id; ?>">
+                    <?= $pasien->kode_pasien;?>
                   </a></th>
-                <th><?=$user->email;?></th>
+                <th><?=$pasien->nama_pasien;?></th>
+                <th><?=$pasien->jenis_pasien;?></th>
               </tr>
 
               <?php }
@@ -188,42 +195,57 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Form Tambah Pengguna</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Form Tambah Pasien</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form class="form-horizontal" method="POST" action="save_pengguna.php">
+      <form class="form-horizontal" method="POST" action="save_pasien.php">
       <div class="modal-body">
       <div class="form-row">
                                 <div class="col-md-12">
-                                <label for="nama">Nama</label>
-                                    <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama">
+                                <label for="kode_pasien">Kode Pasien</label>
+                                    <input type="text" name="kode_pasien" id="kode_pasien" class="form-control" placeholder="Masukkan Kode Pasien">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12">
-                                <label for="email">Email</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Email" id="email" name="email" required>
+                                <label for="nama_pasien">Nama Pasien</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Nama Pasien" id="nama_pasien" name="nama_pasien" required>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                <label for="password">Password</label>
-                                    <input type="password" class="form-control" placeholder="Masukkan Password" id="password" name="password" required>
-                                    <input type="checkbox" onclick="myFunction()" style=" margin-top: 1rem !important;"> Show Password 
-
-                                </div>
-                            </div>
-                            <div class="form-row">
-  <div class="col-md-12">
-    <label>Level</label>
-    <select class="form-select" aria-label="Default select example" name="level">
-      <option selected disabled>Pilih Level</option>
-      <option value="admin">Admin</option>
-      <option value="petugas">Petugas</option>
-      <option value="bendahara">Bendahara</option>
+                            <div class="col-md-12">
+    <label>Jenis Kelamin</label>
+    <select class="form-select" aria-label="Default select example" name="Jenis_pasien">
+      <option selected disabled>Jenis Kelamin</option>
+      <option value="laki-laki">Laki-Laki</option>
+      <option value="perempuan">Perempuan</option>
+      <option value="laki dan perempuan">Laki dan Perempuan</option>
     </select>
   </div>
-</div>
+
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                <label for="password">Tempat Lahir</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Tempat Lahir" id="tempat_lahir" name="tempat_lahir" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                <label for="nama_pasien">Tanggal Lahir</label>
+                                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                <label for="alamat_pasien">Tempat Tinggal</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Tempat Tinggal" id="alamat_pasien" name="alamat_pasien" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                <label for="nomor_telphone">Nomor Telphone</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Nomor Telphone" id="nomor_telphone" name="nomor_telphone" required>
+                                </div>
+                            </div>
 
       </div>
       <div class="modal-footer">

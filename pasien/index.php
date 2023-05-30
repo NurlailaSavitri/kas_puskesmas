@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -61,16 +62,98 @@
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
     <!-- Sidebar Start -->
-    <?php
-    require_once '../section/sidebar.php';
-    ?>
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">    
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="./index.php" class="text-nowrap logo-img">
+            <img src="../assets/images/logos/naraya.jpeg" width="240" alt="" />
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Menu</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="./index.php" aria-expanded="false">
+                <span>
+                  <i class="ti ti-layout-dashboard"></i>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Data Master</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="pengguna.php" aria-expanded="false">
+                <span>
+                  <i class="ti ti-users"></i>
+                </span>
+                <span class="hide-menu">Data Pengguna</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <span>
+                  <i class="ti ti-cards"></i>
+                </span>
+                <span class="hide-menu">Data Pasien</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <span>
+                  <i class="ti ti-article"></i>
+                </span>
+                <span class="hide-menu">Data Layanan Medis</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Transaksi</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="# aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Penerimaan</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Laporan</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" aria-expanded="false">
+                <span>
+                  <i class="ti ti-file-description"></i>
+                </span>
+                <span class="hide-menu">Laporan Pelayanan Medis</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
     <!--  Main wrapper -->
     <div class="body-wrapper">
-      <!--  Header Start -->
-      <?php
-    require_once '../section/header.php';
-    ?>
-      <header class="app-header">
+    
+            <!--  Header Start -->
+            <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
@@ -98,7 +181,7 @@
                       <i class="ti ti-user fs-6"></i>
                       <p class="mb-0 fs-3">Profile</p>
                     </a>
-                    <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                    <a href="../login/form_login.php" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                   </div>
                 </div>
               </li>
@@ -107,6 +190,8 @@
         </nav>
       </header>
       <!--  Header End -->
+
+      <!--  DASHBOARD -->
       <div class="container-fluid">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <div class="container">
@@ -114,7 +199,7 @@
                 <div class="col-md-4 col-xl-3">
                     <div class="card bg-c-blue order-card">
                         <div class="card-block">
-                            <h6 class="m-b-20">Data Pengguna</h6>
+                            <h6 class="m-b-20" href= "pengguna.php">Data Pengguna</h6>
                             <h2 class="text-right"><i class="ti ti-users f-left"></i><span>486</span></h2>
                         </div>
                     </div>

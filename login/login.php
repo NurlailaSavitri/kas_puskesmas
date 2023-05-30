@@ -17,7 +17,7 @@ if (!$isUserExists) {
     return;
 }
 
-$canLoggedIn = password_verify($post->password, $isUserExists->password);
+$canLoggedIn = UserORM::where('password',$post->password)->findOne();
 
 if (!$canLoggedIn) {
     $_SESSION['message'] = "Anda tidak memiliki akses!";
@@ -56,7 +56,7 @@ if ($isUserExists->hak_akses === 'petugas') {
     exit;
 }
 // Check if the user is an admin
-if ($isUserExists->hak_akes === 'bendahara') {
+if ($isUserExists->hak_akses === 'bendahara') {
     // Update last_login and save the user object
     $isUserExists->last_login = time();
     $isUserExists->save();
@@ -70,6 +70,7 @@ if ($isUserExists->hak_akes === 'bendahara') {
     header('location:../bendahara/index.php');
     exit;
 }
+
 // Check if the user is an admin
 if ($isUserExists->hak_akses === 'kepala') {
     // Update last_login and save the user object
@@ -87,4 +88,5 @@ if ($isUserExists->hak_akses === 'kepala') {
 }
 
 // If the user is not an admin, redirect to another page
+
 header('location:../pasien/index.php');

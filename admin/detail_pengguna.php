@@ -66,6 +66,33 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
 .f-right {
     float: right;
 }
+.navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar-left {
+        margin-left: 10px;
+    }
+
+    .navbar-right {
+        margin-right: 10px;
+    }
+    .navbar-left1 {
+        margin-left: 10px;
+    }
+
+    .navbar-right1 {
+        margin-right: 25px;
+    }
+    .a1{
+        margin-right: 0px;
+    }
+    .card{
+      box-shadow: 0 0 10px rgba(1, 2, 3, 4.1);
+
+    }
 </style>
 <body>
   <!--  Body Wrapper -->
@@ -119,51 +146,81 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
       </header>
       <!--  Header End -->
       <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
       
-      <div class="container-fluid">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <div class="container">
-            <div class="row">
-          </div>
-          
+      <div style="margin-left:70px;" class="row">
 
-            <div class="panel-body">
-        <div class="table-responsive mt-3">
-          <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Nama User</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-            <?php
-              //get all pelanggan list
-                        $list_user= UserORM::findMany();
-                        if (!empty($list_user)) {
-                            foreach ($list_user as $key => $user) { ?>
+<div class="col-sm-4">
+  <div class="card" style="display: flex; flex-direction: column; height: 350px;">
+    <div class="card-body" style="display: flex; justify-content: center; align-items: center;">
+      <img src="../gambar/user.jpeg" alt="User Image" style="width: 200px; height: 200px; border-radius: 50%;">
+    </div>
+  </div>
+</div>
 
-              <tr>
-                <th scope="row">
-                  <?= $key +1;?>
-                </th>
-                <th><a>
-                    <?= $user->nama;?>
-                  </a></th>
-                <th><?=$user->email;?></th>
-              </tr>
 
-              <?php }
-                        } else {
-                            echo '<tr><td colspan="4">No records found</td></tr>';
-                        }
-                        ?>
-            </tbody>
-          </table>
 
-          </div>
-        </div>
+
+  <div class="col-sm-7">
+  <div class="card" style="height: 350px;">
+
+      <div class="card-body">
+      <div style="text-align: center;">
+  <strong style="color: black; margin-right: 10px;">INFORMASI</strong>
+</div>
+      
+    
+      <br>
+      <br>
+     
+<div class="navbar">
+  <div class="navbar-left">
+    <strong style="color: black; margin-right: 10px;">Username:</strong>
+    <br>
+    <a><?= $user->nama;?></a>
+  </div>
+  <div class="navbar-right">
+    <strong style="color: black; margin-right: 10px;">Password:</strong>
+    <br>
+    <a><?= $user->password;?></a>
+  </div>
+</div>
+
+<br>
+<br>
+
+
+<div class="navbar">
+    <div class="navbar-left1">
+    <strong style="color: black; margin-right: 10px;">Email:</strong>
+<br>
+        <a><?= $user->email;?></a>
+    </div>
+    <div class="navbar-right1">
+    <strong style="color: black; margin-right: 10px;">Jabatan:</strong>
+<br>
+        <a1><?= $user->hak_akses;?></a1>
+    </div>
+</div>
+<br>
+<br>
+
+
+<div style="white-space: nowrap; text-align: center;">
+<button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+
+<a href="hapus_pengguna.php?id=<?= $user->id ?>" class="btn btn-secondary">Hapus</a>
+
+</div>
+        
+      </div>
+    </div>
+  </div>
+</div>
         <!--  Row 1 -->
         <div class="row">
         <div class="py-6 px-6 text-center">
@@ -185,63 +242,79 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <?php
+  $editMode = false;
+
+  if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+      $id = $_GET['id'];
+      $user = UserORM::findOne($id);
+      $editMode = $user !== null;
+  }
+  ?>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Form Tambah Pengguna</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><?= ($editMode) ? 'Edit' : 'Tambah' ?> Pengguna</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form class="form-horizontal" method="POST" action="save_pengguna.php">
-      <div class="modal-body">
-      <div class="form-row">
-                                <div class="col-md-12">
-                                <label for="nama">Nama</label>
-                                    <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                <label for="email">Email</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Email" id="email" name="email" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                <label for="password">Password</label>
-                                    <input type="password" class="form-control" placeholder="Masukkan Password" id="password" name="password" required>
-                                    <input type="checkbox" onclick="myFunction()" style=" margin-top: 1rem !important;"> Show Password 
-
-                                </div>
-                            </div>
-                            <div class="form-row">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="col-md-12">
+              <label for="nama">Nama</label>
+              <input type="text" value="<?= ($editMode) ? $user->nama : '' ?>" name="nama" class="form-control" placeholder="Masukan Nama">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <label for="email">Email</label>
+              <input type="text" value="<?= ($editMode) ? $user->email : '' ?>" name="email" class="form-control" placeholder="Masukan Email">
+            </div>
+          </div>
+          <div class="form-row">
   <div class="col-md-12">
-    <label>Level</label>
-    <select class="form-select" aria-label="Default select example" name="level">
-      <option selected disabled>Pilih Level</option>
-      <option value="admin">Admin</option>
-      <option value="petugas">Petugas</option>
-      <option value="bendahara">Bendahara</option>
-    </select>
+    <label for="password">Password</label>
+    <input type="password" value="<?= ($editMode) ? $user->password : '' ?>" name="password" id="password" class="form-control" placeholder="Masukan Password">
+    <input type="checkbox" onclick="myFunction()" style="margin-top: 1rem !important;"> Show Password
   </div>
 </div>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
+
+
+
+          <div class="form-row">
+            <div class="col-md-12">
+              <label for="hak_akses">Level</label>
+              <select class="form-select form-control" aria-label="Default select example" name="hak_akses">
+                <option selected disabled><?= ($editMode) ? $user->hak_akses : 'Pilih Level' ?></option>
+                <option value="kepala">Kepala</option>
+                <option value="petugas">Petugas</option>
+                <option value="bendahara">Bendahara</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary"><?= ($editMode) ? 'Save Changes' : 'Add User' ?></button>
+        </div>
+        <?php if ($editMode): ?>
+          <input type="hidden" name="id" value="<?= $user->id ?>">
+        <?php endif; ?>
+      </form>
     </div>
   </div>
 </div>
-</form>
+
 
 <script>
-      function myFunction() {
-        var x = document.getElementById("password");
-      if (x.type === "password") {
-          x.type = "text";
-        } else {
-        x.type = "password";
-    		}
-      } 
-    </script>
+function myFunction() {
+  var passwordInput = document.getElementById("password");
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+  } else {
+    passwordInput.type = "password";
+  }
+}
+</script>

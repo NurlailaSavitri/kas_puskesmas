@@ -1,13 +1,5 @@
 <?php
-session_start();
-require_once '../orm/UserORM.php';
-$editMode= false;
 
-if(isset($_GET['id']) && is_numeric($_GET['id'])){
-    $user_id= $_GET ['id'];
-    $user = UserORM::findOne ($user_id);
-    $editMode = $user;
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -118,12 +110,14 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
         </nav>
       </header>
       <!--  Header End -->
-      <br>
-      
       <div class="container-fluid">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <div class="container">
             <div class="row">
+            <div style="text-align: right;">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  (+)Tambah
+</button>
           </div>
           
 
@@ -138,32 +132,18 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
               </tr>
             </thead>
             <tbody>
-            <?php
-              //get all pelanggan list
-                        $list_user= UserORM::findMany();
-                        if (!empty($list_user)) {
-                            foreach ($list_user as $key => $user) { ?>
-
-              <tr>
-                <th scope="row">
-                  <?= $key +1;?>
-                </th>
-                <th><a>
-                    <?= $user->nama;?>
-                  </a></th>
-                <th><?=$user->email;?></th>
-              </tr>
-
-              <?php }
-                        } else {
-                            echo '<tr><td colspan="4">No records found</td></tr>';
-                        }
-                        ?>
+           <th>1</th>
+           <th>Nama User</th>
+           <th>Email</th>
+        
             </tbody>
           </table>
 
           </div>
         </div>
+       
+    </div>
+  </div>
         <!--  Row 1 -->
         <div class="row">
         <div class="py-6 px-6 text-center">
@@ -184,64 +164,3 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
 </html>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Form Tambah Pengguna</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form class="form-horizontal" method="POST" action="save_pengguna.php">
-      <div class="modal-body">
-      <div class="form-row">
-                                <div class="col-md-12">
-                                <label for="nama">Nama</label>
-                                    <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                <label for="email">Email</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Email" id="email" name="email" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                <label for="password">Password</label>
-                                    <input type="password" class="form-control" placeholder="Masukkan Password" id="password" name="password" required>
-                                    <input type="checkbox" onclick="myFunction()" style=" margin-top: 1rem !important;"> Show Password 
-
-                                </div>
-                            </div>
-                            <div class="form-row">
-  <div class="col-md-12">
-    <label>Level</label>
-    <select class="form-select" aria-label="Default select example" name="level">
-      <option selected disabled>Pilih Level</option>
-      <option value="admin">Admin</option>
-      <option value="petugas">Petugas</option>
-      <option value="bendahara">Bendahara</option>
-    </select>
-  </div>
-</div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
-
-<script>
-      function myFunction() {
-        var x = document.getElementById("password");
-      if (x.type === "password") {
-          x.type = "text";
-        } else {
-        x.type = "password";
-    		}
-      } 
-    </script>
